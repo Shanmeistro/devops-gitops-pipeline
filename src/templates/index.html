@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - DevOps GitOps Demo{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Header Section -->
+    <div class="col-12 mb-4">
+        <div class="card bg-gradient-primary text-white">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <h1 class="card-title mb-2">
+                            <i class="fas fa-tachometer-alt me-2"></i>
+                            Application Dashboard
+                        </h1>
+                        <p class="card-text mb-0">
+                            Real-time monitoring and system information
+                        </p>
+                    </div>
+                    <div class="col-4 text-end">
+                        <i class="fas fa-server fa-3x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Application Info -->
+    <div class="col-lg-6 mb-4">
+        <div class="card h-100">
+            <div class="card-header bg-info text-white">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Application Information
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <p><strong>Name:</strong></p>
+                        <p><strong>Version:</strong></p>
+                        <p><strong>Environment:</strong></p>
+                        <p><strong>Commit SHA:</strong></p>
+                    </div>
+                    <div class="col-6">
+                        <p>{{ app_info.name }}</p>
+                        <p><span class="badge bg-primary">{{ app_info.version }}</span></p>
+                        <p><span class="badge bg-{{ 'success' if app_info.environment == 'production' else 'warning' }}">
+                            {{ app_info.environment }}
+                        </span></p>
+                        <p><code>{{ app_info.commit_sha[:8] }}...</code></p>
+                    </div>
+                </div>
+                <hr>
+                <p class="text-muted mb-0">
+                    <i class="fas fa-clock me-1"></i>
+                    Built: {{ app_info.build_time[:19] }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Metrics -->
+    <div class="col-lg-6 mb-4">
+        <div class="card h-100">
+            <div class="card-header bg-success text-white">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-chart-line me-2"></i>
+                    System Metrics
+                </h5>
+            </div>
+            <div class="card-body">
+                <!-- CPU Usage -->
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span><i class="fas fa-microchip me-1"></i> CPU Usage</span>
+                        <span class="fw-bold">{{ "%.1f"|format(system_info.cpu_percent) }}%</span>
+                    </div>
+                    <div class="progress mt-1">
+                        <div class="progress-bar bg-{{ 'danger' if system_info.cpu_percent > 80 else ('warning' if system_info.cpu_percent > 60 else 'success') }}" 
+                             style="width: {{ system_info.cpu_percent }}%"></div>
+                    </div>
+                </div>
+
+                <!-- Memory Usage -->
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span><i class="fas fa-memory me-1"></i> Memory Usage</span>
+                        <span class="fw-bold">{{ "%.1f"|format(system_info.memory_percent) }}%</span>
+                    </div>
+                    <div class="progress mt-1">
+                        <div class="progress-bar bg-{{ 'danger' if system_info.memory_percent > 80 else ('warning' if system_info.memory_percent > 60 else 'info') }}" 
+                             style="width: {{ system_info.memory_percent }}%"></div>
+                    </div>
+                </div>
+
+                <!-- Disk Usage -->
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span><i class="fas fa-hdd me-1"></i> Disk Usage</span>
+                        <span class="fw-bold">{{ "%.1f"|format(system_info.disk_percent) }}%</span>
+                    </div>
+                    <div class="progress mt-1">
+                        <div class="progress-bar bg-{{ 'danger' if system_info.disk_percent > 80 else ('warning' if system_info.disk_percent > 60 else 'primary') }}" 
+                             style="width: {{ system_info.disk_percent }}%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Runtime Statistics -->
+    <div class="col-lg-4 mb-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <div class="text-primary mb-2">
+                    <i class="fas fa-clock fa-2x"></i>
+                </div>
+                <h5 class="card-title">Uptime</h5>
+                <h3 class="text-primary" id="uptime">{{ "%.0f"|format(system_info.uptime) }}s</h3>
+                <p class="text-muted mb-0">Since last restart</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 mb-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <div class="text-success mb-2">
+                    <i class="fas fa-exchange-alt fa-2x"></i>
+                </div>
+                <h5 class="card-title">Requests</h5>
+                <h3 class="text-success" id="requests">{{ system_info.request_count }}</h3>
+                <p class="text-muted mb-0">Total processed</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 mb-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <div class="text-info mb-2">
+                    <i class="fas fa-heartbeat fa-2x"></i>
+                </div>
+                <h5 class="card-title">Status</h5>
+                <h3 class="text-success">
+                    <i class="fas fa-check-circle"></i> Healthy
+                </h3>
+                <p class="text-muted mb-0">System operational</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- API Endpoints -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-code me-2"></i>
+                    Available API Endpoints
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Health & Monitoring</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="/health" class="text-decoration-none"><i class="fas fa-heartbeat text-success me-1"></i> /health</a> - Health check</li>
+                            <li><a href="/ready" class="text-decoration-none"><i class="fas fa-check text-info me-1"></i> /ready</a> - Readiness probe</li>
+                            <li><a href="/metrics" class="text-decoration-none"><i class="fas fa-chart-bar text-warning me-1"></i> /metrics</a> - Prometheus metrics</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Application Info</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="/version" class="text-decoration-none"><i class="fas fa-info-circle text-primary me-1"></i> /version</a> - Version information</li>
+                            <li><a href="/api/stats" class="text-decoration-none"><i class="fas fa-chart-line text-secondary me-1"></i> /api/stats</a> - System statistics</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Auto-refresh stats every 5 seconds
+setInterval(function() {
+    fetch('/api/stats')
+        .then(response => response.json())
+        .then(data => {
+            // Update uptime
+            document.getElementById('uptime').textContent = Math.floor(data.application.uptime_seconds) + 's';
+            // Update request count
+            document.getElementById('requests').textContent = data.application.request_count;
+        })
+        .catch(error => console.error('Error fetching stats:', error));
+}, 5000);
+</script>
+{% endblock %}

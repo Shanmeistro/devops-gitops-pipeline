@@ -1,0 +1,18 @@
+devops-gitops-pipeline/
+├── src/
+│   ├── app.py                 # Main Flask application
+│   ├── requirements.txt       # Python dependencies
+│   ├── templates/
+│   │   ├── base.html         # Base template
+│   │   ├── index.html        # Dashboard homepage
+│   │   └── error.html        # Error pages
+│   └── static/
+│       ├── css/custom.css    # Custom styling
+│       └── js/app.js         # Frontend JavaScript
+├── .github/workflows/
+│   └── ci.yml                # Enhanced CI/CD pipeline
+├── Dockerfile                # Optimized production container
+├── docker-compose.yml        # Local development setup
+├── .dockerignore             # Build optimization
+├── README.md                 # Comprehensive documentation
+└── LICENSE                   # Standard MIT license
