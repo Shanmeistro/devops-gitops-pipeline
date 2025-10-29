@@ -7,9 +7,10 @@ ARG BUILD_TIME
 ARG COMMIT_SHA=unknown
 
 # Install build dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    python3-dev \
+    linux-headers-$(uname -r)
 
 # Create virtual environment
 RUN python -m venv /opt/venv
