@@ -1,0 +1,11 @@
+{
+  "name": "devops-gitops-pipeline",
+  "version": "0.0.1",
+  "description": "GitOps CI/CD pipeline demo using ArgoCD and GitHub Actions",
+  "scripts": {
+    "release": "standard-version"
+  },
+  "devDependencies": {
+    "standard-version": "^9.5.0"
+  }
+}

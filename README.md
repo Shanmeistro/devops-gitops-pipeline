@@ -1,4 +1,10 @@
-# DevOps GitOps Pipeline
+# 🚀 DevOps GitOps Pipeline
+
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/Shanmeistro/devops-gitops-pipeline)](https://github.com/Shanmeistro/devops-gitops-pipeline/releases)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](./LICENSE)
+![GitHub last commit](https://img.shields.io/github/last-commit/Shanmeistro/devops-gitops-pipeline)
+![GitHub issues](https://img.shields.io/github/issues/Shanmeistro/devops-gitops-pipeline)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/Shanmeistro/devops-gitops-pipeline)
 
 This repository contains the **application source code and CI/CD pipeline** for a comprehensive GitOps deployment demonstration using **GitHub Actions**, **ArgoCD**, and **Kubernetes**.
 
@@ -28,26 +34,29 @@ This repository contains the **application source code and CI/CD pipeline** for 
 
 ## 🏗 Architecture
 
-```
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   This Repo     │    │  Container       │    │  Infra Repo     │
-│ (Application)   │───▶│  Registry        │───▶│ (Manifests)     │
-│                 │    │  (GHCR)          │    │                 │
-│ • Flask App     │    │                  │    │ • K8s Manifests │
-│ • CI/CD         │    │ • Multi-arch     │    │ • ArgoCD Config │
-│ • Tests         │    │ • Versioned      │    │ • Monitoring    │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
-                                                        │
-                                                        ▼
-                                               ┌─────────────────┐
-                                               │   Kubernetes    │
-                                               │   + ArgoCD      │
-                                               │                 │
-                                               │ • Auto-deploy   │
-                                               │ • Health checks │
-                                               │ • Monitoring    │
-                                               └─────────────────┘
-```
+![Architecture Diagram](docs/Arcitecture.png)
+
+## 🎬 Live Demo
+
+### Successful GitOps Deployment
+
+The following screenshots demonstrate the complete GitOps workflow in action:
+
+#### ArgoCD Application Dashboard
+![ArgoCD Dashboard](docs/screenshots/argocd-application-dashboard.png)
+*ArgoCD successfully managing and syncing the application deployment*
+
+#### Kubernetes Resources Status
+![Kubernetes Status](docs/screenshots/kubernetes-pods-status.png)
+*Healthy Kubernetes pods and resources running in the cluster*
+
+#### Live Application Interface
+![Application Running](docs/screenshots/application-ui-running.png)
+*Flask application running with real-time monitoring dashboard*
+
+#### CI/CD Pipeline Success
+![Pipeline Success](docs/screenshots/ci-cd-pipeline-success.png)
+*GitHub Actions workflow completing successfully with automated deployment*
 
 ## 🛠 Tech Stack
 
@@ -186,3 +195,41 @@ This project demonstrates:
 - ✅ **Observability Implementation** with metrics and monitoring
 - ✅ **Production Readiness** with health checks and scaling considerations
 - ✅ **Cloud-Native Architecture** following 12-factor app principles
+
+## 🏷️ Tagging Convention
+
+This project follows [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/):
+
+| Prefix | Meaning |
+|--------|----------|
+| `feat:` | New feature |
+| `fix:`  | Bug fix |
+| `chore:` | Non-functional update |
+| `docs:` | Documentation only |
+| `ci:` | CI/CD or workflow changes |
+
+To create a new release tag:
+```bash
+./scripts/tag-release.sh
+```
+
+DevOps Commit Routine example:
+```bash
+# Make changes
+git add .
+git commit -m "feat: add ArgoCD sync workflow"
+
+# Push code
+git push origin main
+
+# Tag & push
+./scripts/tag-release.sh
+```
+💡 Result:
+```arduino
+Creating minor release: v1.1.0
+✅ Tagged and pushed v1.1.0
+```
+
+## 📜 Changelog
+See [CHANGELOG.md](./CHANGELOG.md) for release history.
