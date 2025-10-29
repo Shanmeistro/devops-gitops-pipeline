@@ -9,8 +9,7 @@ ARG COMMIT_SHA=unknown
 # Install build dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
-    python3-dev \
-    linux-headers-$(uname -r)
+    python3-dev
 
 # Create virtual environment
 RUN python -m venv /opt/venv
