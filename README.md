@@ -36,27 +36,35 @@ This repository contains the **application source code and CI/CD pipeline** for 
 
 ![Architecture Diagram](docs/Arcitecture.png)
 
-## 🎬 Live Demo
+## 🎬 Demo
 
 ### Successful GitOps Deployment
 
 The following screenshots demonstrate the complete GitOps workflow in action:
 
-#### ArgoCD Application Dashboard
-![ArgoCD Dashboard](docs/screenshots/argocd-application-dashboard.png)
-*ArgoCD successfully managing and syncing the application deployment*
+#### ArgoCD UI
+![ArgoCD UI](docs/screenshots/argocd-ui.png)
+*ArgoCD web interface showing application sync status*
 
-#### Kubernetes Resources Status
-![Kubernetes Status](docs/screenshots/kubernetes-pods-status.png)
-*Healthy Kubernetes pods and resources running in the cluster*
+#### ArgoCD Deployment
+![ArgoCD Deployment](docs/screenshots/argocd-deployment.png)
+*ArgoCD deployment details for the application*
 
-#### Live Application Interface
-![Application Running](docs/screenshots/application-ui-running.png)
-*Flask application running with real-time monitoring dashboard*
+#### CI Pipeline Build & Push
+![CI Pipeline Build & Push](docs/screenshots/ci-pipeline-build-and-push.png)
+*GitHub Actions workflow building and pushing Docker images*
 
-#### CI/CD Pipeline Success
-![Pipeline Success](docs/screenshots/ci-cd-pipeline-success.png)
-*GitHub Actions workflow completing successfully with automated deployment*
+#### Cluster & Node Info
+![Cluster & Node Info](docs/screenshots/cluster-and-node-info.png)
+*Kubernetes cluster and node information*
+
+#### Cluster Configuration
+![Cluster Configuration](docs/screenshots/cluster-configuration.png)
+*Kubernetes cluster configuration overview*
+
+#### Grafana Dashboard
+![Grafana Dashboard](docs/screenshots/grafana-dashboard.png)
+*Grafana dashboard visualizing application metrics*
 
 ## 🛠 Tech Stack
 
